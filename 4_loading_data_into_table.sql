@@ -33,3 +33,31 @@ file_format = (type = csv
 
 -- Validate
 SELECT * FROM LOAN_PAYMENT;
+
+
+-- ASSESSMENT
+
+CREATE OR REPLACE DATABASE COMPANY;
+CREATE OR REPLACE SCHEMA COMPANY.RAW;
+
+CREATE OR REPLACE TABLE COMPANY.RAW.CUSTOMERS (
+    ID INT,
+    first_name varchar,
+    last_name varchar,
+    email varchar,
+    age int,
+    city varchar
+)
+COMMENT = 'The company customers table';
+
+COPY INTO COMPANY.RAW.CUSTOMERS
+FROM s3://snowflake-assignments-mc/gettingstarted/customers.csv
+file_format = (type = csv
+               field_delimiter = ','
+               skip_header=1);
+
+SELECT COUNT(*) FROM COMPANY.RAW.CUSTOMERS;
+
+
+
+
